@@ -13,7 +13,7 @@ void my_swap(int *x, int *y)
 /*삽입 정렬 */
 void insertion_sort(int arr[], int cnt)
 {
-	int idx,j;
+	int j;
 	for(int i=0; i<cnt-1; i++)
 	{
 		j = i;
