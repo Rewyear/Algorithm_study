@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+// 이진탐색 재귀적 구현
+int recursiveBinSearch(int arr[], int start, int end, int value)
+{
+  int middle = (start + end) / 2;
+  
+  if(start >= end)
+  {
+    if(arr[middle] == value)
+      return middle;
+    else
+      return -1;
+  }
+  
+  if(arr[middle] == value)
+    return middle;
+  else if(arr[middle] > value)
+    return recursiveBinSearch(arr,start,middle-1,value);
+  else
+    return recursiveBinSearch(arr,middle+1,end,value);
+}
+
+// 이진탐색 반복문 이용 구현
+int binarySerach(int arr[], int start, int end, int value)
+{
+  int s=start, e=end;
+  int middle = (start + end) / 2;
+  
+  // start: value보다 항상 작은 값을 가르킴
+  // end:   value보다 항상 큰 값을 가르킴
+  
+  // 범위 체크
+  if(arr[s] > value) return -1;
+  if(arr[e] < value) return -1;
+  
+  // end = start+1인 경우 찾는 값 없음
+  // (즉, 위 조건을 만족하는 원소s, e만 남으므로)
+  while(s+1 != e) 
+  {
+    if(arr[middle] == value)
+      return middle;
+    else if(value < arr[middle])
+      e = middle;
+    else
+      s = middle;
+      
+    middle = (s + e) / 2;
+  }
+  return -1;
+}
+
+int main() {
+  int arr[] = {1,4,5,7,8,12,14,15,17,20};
+  
+  printf("binarySerach(not recursive): %d\n",binarySerach(arr,0,9,7));
+  printf("binarySerach(not recursive): %d\n",binarySerach(arr,0,9,17));
+  printf("binarySerach(not recursive): %d\n",binarySerach(arr,0,9,13));
+  
+  printf("binarySerach(recursive): %d\n",recursiveBinSearch(arr,0,9,7));
+  printf("binarySerach(recursive): %d\n",recursiveBinSearch(arr,0,9,17));
+  printf("binarySerach(recursive): %d\n",recursiveBinSearch(arr,0,9,13));
+
+  return 0;
+}
